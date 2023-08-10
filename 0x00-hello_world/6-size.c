@@ -1,25 +1,23 @@
 #include <stdio.h>
 
 /**
-* main - program that print sizes
-* Description - this program print out data types and their sizes
-* Return:always 0(Success)
-*/
+ *  main - This program is all about Data types
+ *  Description - This program prints out data types and their sizes
+ *  Return: 0
+ */
 
 int main(void)
 {
 char c;
 int i;
-long l;
-long long ll;
+long int li;
+long long int lli;
 float f;
-short s;
 
-printf("Size of char: %u byte(s)\n", sizeof(c));
-printf("Size of short: %lu byte(s)\n", sizeof(s));
-printf("Size of int: %lu byte(s)\n", sizeof(i));
-printf("Size of long: %lu byte(s)\n", sizeof(l));
-printf("Size of long long: %lu byte(s)\n", sizeof(ll));
-printf("Size of float: %lu byte(s)\n", sizeof(f));
+printf("Size of a char: %u byte(s)\n", (unsigned long)sizeof(c));
+printf("Size of an int: %lu byte(s)\n", (unsigned long)sizeof(i));
+printf("Size of a long int: %lu byte(s)\n", (unsigned long)sizeof(li));
+printf("Size of a long long int: %lu byte(s)\n", (unsigned long)sizeof(lli));
+printf("Size of a float: %lu byte(s)\n", (unsigned long)sizeof(f));
 return (0);
 }
