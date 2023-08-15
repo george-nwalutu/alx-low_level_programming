@@ -1,9 +1,9 @@
-0 - putchar.c
-
 #include "main.h"
+
+
 /**
  * main - print _putchar
- * is written by nwalutu ebuka george
+ *
  * Return: 0
  */
 
