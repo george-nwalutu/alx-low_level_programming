@@ -1,7 +1,7 @@
 #include "lists.h"
 
 /**
- * free_listint_safe - program to Safely frees a linked list.
+ * free_listint_safe - Safely frees a linked list.
  * @h: A pointer to the head of the linked list.
  *
  * Return: The number of elements in the freed list.
@@ -16,23 +16,13 @@ size_t free_listint_safe(listint_t **h)
 
 	while (*h)
 	{
-		ptrdiff_t diff = (char *)(*h) - (char *)(*h)->next;
+		current = *h;
 
-		if (diff > 0)
-		{
-			temp = (*h)->next;
-			free(*h);
-			*h = temp;
-			len++;
-		}
+		*h = current->next;
 
-		else
-		{
-			free(*h);
-			*h = NULL;
-			len++;
-			break;
-		}
+		free(current);
+
+		len++;
 	}
 
 	*h = NULL;
