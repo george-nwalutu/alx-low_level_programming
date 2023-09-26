@@ -1,68 +1,71 @@
 #include "lists.h"
 #include <stdio.h>
 
+size_t looped_listint_len(const listint_t *head);
+size_t print_listint_safe(const listint_t *head);
+
 /**
- * count_unique_nodes - program Counts the number of unique nodes
- * @head: A pointer to the begining of the listint_t to check.
+ * looped_listint_len - Calculate the length of a circular listint_t.
+ * @head: A pointer to the head of the listint_t to examine.
  *
- * Return: If the list is not looped - 0.
+ * Return: If the list is not circular - 0.
  * Otherwise - the number of unique nodes in the list.
  */
-size_t count_unique_nodes(const listint_t *head)
+size_t looped_listint_len(const listint_t *head)
 {
-	const listint_t *slow_ptr, *fast_ptr;
-	size_t node_count = 1;
+	const listint_t *tortoise, *hare;
+	size_t unique_nodes = 1;
 
 	if (head == NULL || head->next == NULL)
 		return (0);
 
-	slow_ptr = head->next;
-	fast_ptr = (head->next)->next;
+	tortoise = head->next;
+	hare = (head->next)->next;
 
-	while (fast_ptr)
+	while (hare)
 	{
-		if (slow_ptr == fast_ptr)
+		if (tortoise == hare)
 		{
-			slow_ptr = head;
-			while (slow_ptr != fast_ptr)
+			tortoise = head;
+			while (tortoise != hare)
 			{
-				node_count++;
-				slow_ptr = slow_ptr->next;
-				fast_ptr = fast_ptr->next;
+				unique_nodes++;
+				tortoise = tortoise->next;
+				hare = hare->next;
 			}
 
-			slow_ptr = slow_ptr->next;
-			while (slow_ptr != fast_ptr)
+			tortoise = tortoise->next;
+			while (tortoise != hare)
 			{
-				node_count++;
-				slow_ptr = slow_ptr->next;
+				unique_nodes++;
+				tortoise = tortoise->next;
 			}
 
-			return (node_count);
+			return (unique_nodes);
 		}
 
-		slow_ptr = slow_ptr->next;
-		fast_ptr = (fast_ptr->next)->next;
+		tortoise = tortoise->next;
+		hare = (hare->next)->next;
 	}
 
 	return (0);
 }
 
 /**
- * print_list_safe - functions that Print a listint_t list safe.
- * @head: A pointer to the beginning of the listint_t list.
+ * print_listint_safe - Safely print a listint_t linked list.
+ * @head: A pointer to the head of the listint_t list to print.
  *
  * Return: The number of nodes in the list.
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	size_t total_nodes, index = 0;
+	size_t nodes, index = 0;
 
-	total_nodes = count_unique_nodes(head);
+	nodes = looped_listint_len(head);
 
-	if (total_nodes == 0)
+	if (nodes == 0)
 	{
-		for (; head != NULL; total_nodes++)
+		for (; head != NULL; nodes++)
 		{
 			printf("[%p] %d\n", (void *)head, head->n);
 			head = head->next;
@@ -70,7 +73,7 @@ size_t print_listint_safe(const listint_t *head)
 	}
 	else
 	{
-		for (index = 0; index < total_nodes; index++)
+		for (index = 0; index < nodes; index++)
 		{
 			printf("[%p] %d\n", (void *)head, head->n);
 			head = head->next;
@@ -79,5 +82,5 @@ size_t print_listint_safe(const listint_t *head)
 		printf("-> [%p] %d\n", (void *)head, head->n);
 	}
 
-	return (total_nodes);
+	return (nodes);
 }
